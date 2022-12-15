@@ -104,18 +104,6 @@ class _HomeBodyState extends State<HomeBody> {
           child: Column(
             children: [
               SizedBox(height: 50,),
-              // Align(
-              //   alignment: Alignment.centerRight,
-              //   child: GestureDetector(
-              //     onTap: (() {
-              //       Navigator.push(context, MaterialPageRoute(builder: (context)=>Search()));
-              //     }),
-              //     child: Padding(
-              //       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-              //       child: Icon(Icons.search, size: 30, color: Colors.green,),
-              //     ),
-              //   ),
-              // ),
               FutureBuilder<List<Aicamzone>>(
                     future: AicamzoneService.getDataAicamzone(),
                     builder: (context, snapshot) {
@@ -185,14 +173,6 @@ class _HomeBodyState extends State<HomeBody> {
                                           ],
                                         ),
                                       ),
-                                      Icon(Icons.bookmark,size: 30, color: Colors.grey,)
-                                      // GestureDetector(
-                                      //   onTap: (){
-                                      //     setState(() {
-                                      //       isBookmark = !isBookmark;
-                                      //     });
-                                      //   },
-                                      //   child: Icon(Icons.bookmark, color: isBookmark == false ? Colors.grey : Color.fromARGB(255, 45, 182, 163),))
                                     ],
                                   )
                                 ],

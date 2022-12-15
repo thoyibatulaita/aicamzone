@@ -22,7 +22,7 @@ class _SpesifikasiState extends State<Spesifikasi> {
 
   void addBookmark(bool isBookmark) async {
       try {
-        var response = await Dio().put('http://192.168.31.181:3000/data/' + widget.aicamzone.id.toString(),
+        var response = await Dio().put('http://192.168.100.199:3000/data/' + widget.aicamzone.id.toString(),
             data: {"nama_barang": widget.aicamzone.nama_barang, "img_url": widget.aicamzone.img_url, "deskripsi": widget.aicamzone.deskripsi, "harga": widget.aicamzone.harga, "isBookmark": isBookmark});
         if (response.data.length > 0) {
           print("Bookmark added successfully");

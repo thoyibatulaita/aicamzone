@@ -1,5 +1,5 @@
-import 'package:aicamzone/aicamzone.dart';
 import 'package:aicamzone/aicamzone_service.dart';
+import 'package:aicamzone/edit_profile.dart';
 import 'package:aicamzone/login.dart';
 import 'package:aicamzone/user.dart';
 import 'package:flutter/material.dart';
@@ -18,20 +18,13 @@ class _ProfileState extends State<Profile> {
   TextEditingController controllerPhone = TextEditingController();
 
   @override
-  void initState(){
-    controllerUsername.text = widget.user.username;
-    controllerEmail.text = widget.user.email;
-    controllerPhone.text = widget.user.telfon;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromARGB(255, 156, 208, 201),
       body:
-      FutureBuilder<List<Aicamzone>>(
-        future: AicamzoneService.getDataAicamzone(),
+      FutureBuilder<List<User>>(
+        future: AicamzoneService.getDataUserId(widget.user.id.toString()),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -73,88 +66,135 @@ class _ProfileState extends State<Profile> {
                       ],
                     ),
                     ),
-                    SizedBox(height: 70),
+                    SizedBox(height: 50),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          TextField(
-                            controller: controllerEmail,
-                            enabled: false,
-                    style: const TextStyle(
-                      fontFamily: 'Poppins-Medium',
-                      fontSize: 16,
+                          Container(
+                            width: double.infinity,
+                            height: 54,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.mail),
+                                  SizedBox(width: 15),
+                                  Text("${snapshot.data?[0].email}",
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins-Regular',
+                                    fontSize: 16,
+                                  )),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                          Container(
+                            width: double.infinity,
+                            height: 54,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.person),
+                                  SizedBox(width: 15),
+                                  Text("${snapshot.data?[0].username}",
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins-Regular',
+                                    fontSize: 16,
+                                  )),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                          Container(
+                            width: double.infinity,
+                            height: 54,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.phone),
+                                  SizedBox(width: 15),
+                                  Text("${snapshot.data?[0].telfon}",
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins-Regular',
+                                    fontSize: 16,
+                                  )),
+                                ],
+                              ),
+                            ),
+                          ),
+                  SizedBox(height: 30),
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                     height: 55,
+                          width: 180,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromARGB(255, 218, 218, 218),
+                              elevation: 0,
+                              side: BorderSide(width: 1, color: Color.fromARGB(255, 45, 182, 163)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
+                              )
+                            ),
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>EditProfile(user: User(id: int.parse("${snapshot.data?[0].id}"), email: "${snapshot.data?[0].email}", username: "${snapshot.data?[0].username}", telfon: "${snapshot.data?[0].telfon}", password: "${snapshot.data?[0].password}"),)));
+                            }, 
+                            child: Text("Edit Profile",
+                            style: TextStyle(
+                              fontFamily: 'Poppins-Regular',
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 45, 182, 163),
+                            )),
+                          ),
                     ),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      enabled: false,
-                      disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.white)
-                      ),
-                      prefixIcon: Icon(Icons.mail),
-                      hintText: "Email Address",
-                      contentPadding:
-                      EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                      hintStyle: const TextStyle(
-                        fontFamily: 'Poppins-Medium',
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                    TextField(
-                      controller: controllerUsername,
-                            enabled: false,
-                      style: const TextStyle(
-                        fontFamily: 'Poppins-Medium',
-                        fontSize: 16,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        enabled: false,
-                        fillColor: Colors.white,
-                        disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.white)
-                        ),
-                        prefixIcon: Icon(Icons.person),
-                        hintText: "Username",
-                        contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                        hintStyle: const TextStyle(
-                          fontFamily: 'Poppins-Medium',
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
+                        SizedBox(
+                          height: 55,
+                          width: 180,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromARGB(255, 218, 218, 218),
+                              elevation: 0,
+                              side: BorderSide(width: 1, color: Color.fromARGB(255, 45, 182, 163)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
+                              )
+                            ),
+                            onPressed: (){
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));
+                                AicamzoneService.removeProfile(widget.user.id.toString());
+                                Navigator.pop(context);
+                            }, 
+                            child: Text("Hapus Profile",
+                            style: TextStyle(
+                              fontFamily: 'Poppins-Regular',
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 45, 182, 163),
+                            )
+                            ),
+                          ),
+                        ), 
+                  ],
+                ),
                     SizedBox(height: 20),
-                    TextField(
-                      controller: controllerPhone,
-                            enabled: false,
-                      style: const TextStyle(
-                        fontFamily: 'Poppins-Medium',
-                        fontSize: 16,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.white)
-                        ),
-                        prefixIcon: Icon(Icons.call),
-                        hintText: "Telpon",
-                        contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                        hintStyle: const TextStyle(
-                          fontFamily: 'Poppins-Medium',
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 50),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));

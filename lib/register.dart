@@ -19,7 +19,7 @@ class _RegisterState extends State<Register> {
 
     void register(String email, username, telfon, password) async {
       try {
-        var response = await Dio().post('http://192.168.31.181:3000/users',
+        var response = await Dio().post('http://192.168.100.199:3000/users',
             data: {"email": email, "username": username, "telfon": telfon, "password": password});
         if (response.data.length > 0) {
           print("Account created successfully");

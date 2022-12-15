@@ -83,8 +83,8 @@ class _SearchState extends State<Search> {
                     text = text.toLowerCase();
                     setState(() {
                       _aicamzoneDisplay = _aicamzone.where((aicamzone) {
-                        var recipeTitle = aicamzone.nama_barang.toLowerCase();
-                        return recipeTitle.contains(text);
+                        var aicamzoneTitle = aicamzone.nama_barang.toLowerCase();
+                        return aicamzoneTitle.contains(text);
                       }).toList();
                     });
                   },
