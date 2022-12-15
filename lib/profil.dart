@@ -170,7 +170,7 @@ class _ProfileState extends State<Profile> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           )),
-                    ),  
+                         ),  
                         ],
                       ),
                     )

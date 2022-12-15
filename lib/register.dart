@@ -19,7 +19,7 @@ class _RegisterState extends State<Register> {
 
     void register(String email, username, telfon, password) async {
       try {
-        var response = await Dio().post('http://192.168.100.199:3000/users',
+        var response = await Dio().post('http://192.168.31.181:3000/users',
             data: {"email": email, "username": username, "telfon": telfon, "password": password});
         if (response.data.length > 0) {
           print("Account created successfully");
@@ -167,7 +167,7 @@ class _RegisterState extends State<Register> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        register(controllerEmail.text, controllerUser, controllerTelp, controllerPass.text);
+                        register(controllerEmail.text, controllerUser.text, controllerTelp.text, controllerPass.text);
                       },
                       child: const Text("Register",
                           style: TextStyle(
